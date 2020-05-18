@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "572ea44b-f539-409f-b872-66908a9ad8e9",
+		"name": "simuladorSicredi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://5b847b30db24a100142dce1b.mockapi.io/api/v1/simulador",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"id\": 1,\n\t\"meses\": [\"112\", \"124\", \"136\", \"148\"], \n\t\"valor\": [\"2.802\", \"3.174\", \"3.564\", \"3.971\"]\n}"
+				},
+				"url": {
+					"raw": "http://5b847b30db24a100142dce1b.mockapi.io/api/v1/simulador",
+					"protocol": "http",
+					"host": [
+						"5b847b30db24a100142dce1b",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"api",
+						"v1",
+						"simulador"
+					]
+				},
+				"description": "{ \r\n\t\"id\": 1,\r\n\t\"meses\": [\"112\", \"124\", \"136\", \"148\"], \r\n\t\"valor\": [\"2.802\", \"3.174\", \"3.564\", \"3.971\"]\r\n}"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
