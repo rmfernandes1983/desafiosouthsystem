@@ -1,0 +1,2 @@
+*** Variables ***
+${VALORSIMULADO}            class:valor

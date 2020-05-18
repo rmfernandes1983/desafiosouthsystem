@@ -1,0 +1,1499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.8.2 on win32)" generated="20200518 12:27:56.268" rpa="false">
+<suite id="s1" name="Simularpoupanca" source="c:\southsystem\sicredi\tests\simularpoupanca.robot">
+<kw name="Open Session" library="BasePage" type="setup">
+<kw name="Open Chrome" library="BasePage">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+<arg>chrome</arg>
+<arg>options=add_experimental_option('excludeSwitches', ['enable-logging'])</arg>
+</arguments>
+<msg timestamp="20200518 12:27:56.447" level="INFO">Opening browser 'chrome' to base url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'.</msg>
+<status status="PASS" starttime="20200518 12:27:56.447" endtime="20200518 12:28:00.021"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:27:56.447" endtime="20200518 12:28:00.022"></status>
+</kw>
+<kw name="Set Selenium Implicit Wait" library="SeleniumLibrary">
+<doc>Sets the implicit wait value used by Selenium.</doc>
+<arguments>
+<arg>5</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:00.022" endtime="20200518 12:28:00.024"></status>
+</kw>
+<kw name="Set Window Size" library="SeleniumLibrary">
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<arguments>
+<arg>1280</arg>
+<arg>800</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:00.024" endtime="20200518 12:28:02.138"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:27:56.447" endtime="20200518 12:28:02.138"></status>
+</kw>
+<test id="s1-t1" name="Simular Investimento Poupança Pessoa Fisica">
+<kw name="Dado que eu acesso a página da Sicredi" library="actions">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+</arguments>
+<msg timestamp="20200518 12:28:02.139" level="INFO">Opening url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'</msg>
+<status status="PASS" starttime="20200518 12:28:02.139" endtime="20200518 12:28:02.264"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:02.139" endtime="20200518 12:28:02.264"></status>
+</kw>
+<kw name="Eu como associado quando preencho os campos para simulação" library="actions">
+<arguments>
+<arg>poupancapf.json</arg>
+</arguments>
+<kw name="Get Simulacao Json" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<assign>
+<var>${dados_simulacao_json}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>resources/fixtures/${file_name}</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20200518 12:28:02.265" level="INFO" html="yes">Getting file '&lt;a href="file://c:\southsystem\sicredi\resources\fixtures\poupancapf.json"&gt;c:\southsystem\sicredi\resources\fixtures\poupancapf.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200518 12:28:02.266" level="INFO">${file} = {
+    "perfil": "paraVoce",
+    "valorAplicar": "20,00",
+    "valorInvestir": "21,00",
+    "tempoPoupar": "10",
+    "mesAno": "2"
+}</msg>
+<status status="PASS" starttime="20200518 12:28:02.265" endtime="20200518 12:28:02.266"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads($file)</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200518 12:28:02.267" level="INFO">${json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '21,00', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:02.266" endtime="20200518 12:28:02.267"></status>
+</kw>
+<msg timestamp="20200518 12:28:02.267" level="INFO">${dados_simulacao_json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '21,00', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:02.265" endtime="20200518 12:28:02.267"></status>
+</kw>
+<kw name="Simular Poupança" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:02.268" endtime="20200518 12:28:02.298"></status>
+</kw>
+<kw name="Select Radio Button" library="SeleniumLibrary">
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<arguments>
+<arg>perfil</arg>
+<arg>${dados_simulacao_json['perfil']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:02.298" level="INFO">Selecting 'paraVoce' from radio button 'perfil'.</msg>
+<status status="PASS" starttime="20200518 12:28:02.298" endtime="20200518 12:28:02.315"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+<arg>${dados_simulacao_json['valorAplicar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:02.315" level="INFO">Typing text '20,00' into text field 'id:valorAplicar'.</msg>
+<status status="PASS" starttime="20200518 12:28:02.315" endtime="20200518 12:28:02.405"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorInvestir</arg>
+<arg>${dados_simulacao_json['valorInvestir']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:02.405" level="INFO">Typing text '21,00' into text field 'id:valorInvestir'.</msg>
+<status status="PASS" starttime="20200518 12:28:02.405" endtime="20200518 12:28:02.490"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:tempo</arg>
+<arg>${dados_simulacao_json['tempoPoupar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:02.491" level="INFO">Typing text '10' into text field 'id:tempo'.</msg>
+<status status="PASS" starttime="20200518 12:28:02.491" endtime="20200518 12:28:02.557"></status>
+</kw>
+<kw name="Selecione Mes ou Ano" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json['mesAno']}</arg>
+</arguments>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btSelect</arg>
+</arguments>
+<msg timestamp="20200518 12:28:02.558" level="INFO">Clicking element 'class:btSelect'.</msg>
+<status status="PASS" starttime="20200518 12:28:02.558" endtime="20200518 12:28:02.601"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>class:listaSelect</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:02.601" endtime="20200518 12:28:02.620"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[${mesAno}]/a</arg>
+</arguments>
+<msg timestamp="20200518 12:28:02.621" level="INFO">Clicking element 'xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20200518 12:28:02.620" endtime="20200518 12:28:02.786"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:02.558" endtime="20200518 12:28:02.786"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:03.101" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:02.786" endtime="20200518 12:28:03.101"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btnAmarelo</arg>
+</arguments>
+<msg timestamp="20200518 12:28:03.101" level="INFO">Clicking element 'class:btnAmarelo'.</msg>
+<status status="PASS" starttime="20200518 12:28:03.101" endtime="20200518 12:28:03.143"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:02.268" endtime="20200518 12:28:03.143"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:02.265" endtime="20200518 12:28:03.143"></status>
+</kw>
+<kw name="Então Devo visualizar o formulário de simulação &quot;R$ 2.823&quot;" library="actions">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>${VALORSIMULADO}</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:03.144" endtime="20200518 12:28:03.371"></status>
+</kw>
+<kw name="Element Text Should Be" library="SeleniumLibrary">
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<arguments>
+<arg>${VALORSIMULADO}</arg>
+<arg>${resultado}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:03.371" level="INFO">Verifying element 'class:valor' contains exact text 'R$ 2.823'.</msg>
+<status status="PASS" starttime="20200518 12:28:03.371" endtime="20200518 12:28:03.386"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:03.143" endtime="20200518 12:28:03.386"></status>
+</kw>
+<kw name="After Test" library="BasePage" type="teardown">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:03.681" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:03.387" endtime="20200518 12:28:03.681"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:03.387" endtime="20200518 12:28:03.681"></status>
+</kw>
+<tags>
+<tag>simular_sucesso_pf</tag>
+</tags>
+<status status="PASS" starttime="20200518 12:28:02.138" endtime="20200518 12:28:03.681" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Simular Investimento Poupança Pessoa Juridica">
+<kw name="Dado que eu acesso a página da Sicredi" library="actions">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+</arguments>
+<msg timestamp="20200518 12:28:03.684" level="INFO">Opening url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'</msg>
+<status status="PASS" starttime="20200518 12:28:03.684" endtime="20200518 12:28:03.797"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:03.684" endtime="20200518 12:28:03.797"></status>
+</kw>
+<kw name="Eu como associado quando preencho os campos para simulação" library="actions">
+<arguments>
+<arg>poupancapj.json</arg>
+</arguments>
+<kw name="Get Simulacao Json" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<assign>
+<var>${dados_simulacao_json}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>resources/fixtures/${file_name}</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20200518 12:28:03.800" level="INFO" html="yes">Getting file '&lt;a href="file://c:\southsystem\sicredi\resources\fixtures\poupancapj.json"&gt;c:\southsystem\sicredi\resources\fixtures\poupancapj.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200518 12:28:03.800" level="INFO">${file} = {
+    "perfil": "paraEmpresa",
+    "valorAplicar": "30,00",
+    "valorInvestir": "41,00",
+    "tempoPoupar": "50",
+    "mesAno": "1"
+}</msg>
+<status status="PASS" starttime="20200518 12:28:03.799" endtime="20200518 12:28:03.800"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads($file)</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200518 12:28:03.802" level="INFO">${json} = {'perfil': 'paraEmpresa', 'valorAplicar': '30,00', 'valorInvestir': '41,00', 'tempoPoupar': '50', 'mesAno': '1'}</msg>
+<status status="PASS" starttime="20200518 12:28:03.800" endtime="20200518 12:28:03.802"></status>
+</kw>
+<msg timestamp="20200518 12:28:03.802" level="INFO">${dados_simulacao_json} = {'perfil': 'paraEmpresa', 'valorAplicar': '30,00', 'valorInvestir': '41,00', 'tempoPoupar': '50', 'mesAno': '1'}</msg>
+<status status="PASS" starttime="20200518 12:28:03.799" endtime="20200518 12:28:03.802"></status>
+</kw>
+<kw name="Simular Poupança" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:03.803" endtime="20200518 12:28:03.826"></status>
+</kw>
+<kw name="Select Radio Button" library="SeleniumLibrary">
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<arguments>
+<arg>perfil</arg>
+<arg>${dados_simulacao_json['perfil']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:03.827" level="INFO">Selecting 'paraEmpresa' from radio button 'perfil'.</msg>
+<status status="PASS" starttime="20200518 12:28:03.827" endtime="20200518 12:28:03.884"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+<arg>${dados_simulacao_json['valorAplicar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:03.885" level="INFO">Typing text '30,00' into text field 'id:valorAplicar'.</msg>
+<status status="PASS" starttime="20200518 12:28:03.884" endtime="20200518 12:28:03.965"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorInvestir</arg>
+<arg>${dados_simulacao_json['valorInvestir']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:03.966" level="INFO">Typing text '41,00' into text field 'id:valorInvestir'.</msg>
+<status status="PASS" starttime="20200518 12:28:03.965" endtime="20200518 12:28:04.046"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:tempo</arg>
+<arg>${dados_simulacao_json['tempoPoupar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:04.047" level="INFO">Typing text '50' into text field 'id:tempo'.</msg>
+<status status="PASS" starttime="20200518 12:28:04.046" endtime="20200518 12:28:04.113"></status>
+</kw>
+<kw name="Selecione Mes ou Ano" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json['mesAno']}</arg>
+</arguments>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btSelect</arg>
+</arguments>
+<msg timestamp="20200518 12:28:04.114" level="INFO">Clicking element 'class:btSelect'.</msg>
+<status status="PASS" starttime="20200518 12:28:04.113" endtime="20200518 12:28:04.153"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>class:listaSelect</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:04.153" endtime="20200518 12:28:04.165"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[${mesAno}]/a</arg>
+</arguments>
+<msg timestamp="20200518 12:28:04.165" level="INFO">Clicking element 'xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[1]/a'.</msg>
+<status status="PASS" starttime="20200518 12:28:04.165" endtime="20200518 12:28:04.219"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:04.113" endtime="20200518 12:28:04.219"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:04.518" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:04.219" endtime="20200518 12:28:04.518"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btnAmarelo</arg>
+</arguments>
+<msg timestamp="20200518 12:28:04.519" level="INFO">Clicking element 'class:btnAmarelo'.</msg>
+<status status="PASS" starttime="20200518 12:28:04.518" endtime="20200518 12:28:04.569"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:03.802" endtime="20200518 12:28:04.569"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:03.798" endtime="20200518 12:28:04.569"></status>
+</kw>
+<kw name="Então Devo visualizar o formulário de simulação &quot;R$ 2.172&quot;" library="actions">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>${VALORSIMULADO}</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:04.570" endtime="20200518 12:28:04.814"></status>
+</kw>
+<kw name="Element Text Should Be" library="SeleniumLibrary">
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<arguments>
+<arg>${VALORSIMULADO}</arg>
+<arg>${resultado}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:04.815" level="INFO">Verifying element 'class:valor' contains exact text 'R$ 2.172'.</msg>
+<status status="PASS" starttime="20200518 12:28:04.814" endtime="20200518 12:28:04.837"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:04.570" endtime="20200518 12:28:04.837"></status>
+</kw>
+<kw name="After Test" library="BasePage" type="teardown">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:05.127" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:04.838" endtime="20200518 12:28:05.127"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:04.838" endtime="20200518 12:28:05.127"></status>
+</kw>
+<tags>
+<tag>simular_sucesso_pj</tag>
+</tags>
+<status status="PASS" starttime="20200518 12:28:03.684" endtime="20200518 12:28:05.128" critical="yes"></status>
+</test>
+<test id="s1-t3" name="Tentativa de Simular Investimento Poupança valor aplicar menor R$ 20">
+<kw name="Tentativa de Simulacao">
+<arguments>
+<arg>poupancaVAM20.json</arg>
+<arg>Valor mínimo de 20.00</arg>
+</arguments>
+<kw name="Dado que eu acesso a página da Sicredi" library="actions">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+</arguments>
+<msg timestamp="20200518 12:28:05.130" level="INFO">Opening url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'</msg>
+<status status="PASS" starttime="20200518 12:28:05.130" endtime="20200518 12:28:05.274"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:05.130" endtime="20200518 12:28:05.274"></status>
+</kw>
+<kw name="Eu como associado quando preencho os campos para simulação" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<kw name="Get Simulacao Json" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<assign>
+<var>${dados_simulacao_json}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>resources/fixtures/${file_name}</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20200518 12:28:05.275" level="INFO" html="yes">Getting file '&lt;a href="file://c:\southsystem\sicredi\resources\fixtures\poupancaVAM20.json"&gt;c:\southsystem\sicredi\resources\fixtures\poupancaVAM20.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200518 12:28:05.276" level="INFO">${file} = {
+    "perfil": "paraVoce",
+    "valorAplicar": "19,99",
+    "valorInvestir": "21,00",
+    "tempoPoupar": "10",
+    "mesAno": "2"
+}</msg>
+<status status="PASS" starttime="20200518 12:28:05.275" endtime="20200518 12:28:05.276"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads($file)</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200518 12:28:05.277" level="INFO">${json} = {'perfil': 'paraVoce', 'valorAplicar': '19,99', 'valorInvestir': '21,00', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:05.276" endtime="20200518 12:28:05.277"></status>
+</kw>
+<msg timestamp="20200518 12:28:05.277" level="INFO">${dados_simulacao_json} = {'perfil': 'paraVoce', 'valorAplicar': '19,99', 'valorInvestir': '21,00', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:05.274" endtime="20200518 12:28:05.277"></status>
+</kw>
+<kw name="Simular Poupança" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:05.278" endtime="20200518 12:28:05.309"></status>
+</kw>
+<kw name="Select Radio Button" library="SeleniumLibrary">
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<arguments>
+<arg>perfil</arg>
+<arg>${dados_simulacao_json['perfil']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:05.310" level="INFO">Selecting 'paraVoce' from radio button 'perfil'.</msg>
+<status status="PASS" starttime="20200518 12:28:05.309" endtime="20200518 12:28:05.323"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+<arg>${dados_simulacao_json['valorAplicar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:05.324" level="INFO">Typing text '19,99' into text field 'id:valorAplicar'.</msg>
+<status status="PASS" starttime="20200518 12:28:05.323" endtime="20200518 12:28:05.399"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorInvestir</arg>
+<arg>${dados_simulacao_json['valorInvestir']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:05.399" level="INFO">Typing text '21,00' into text field 'id:valorInvestir'.</msg>
+<status status="PASS" starttime="20200518 12:28:05.399" endtime="20200518 12:28:05.470"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:tempo</arg>
+<arg>${dados_simulacao_json['tempoPoupar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:05.471" level="INFO">Typing text '10' into text field 'id:tempo'.</msg>
+<status status="PASS" starttime="20200518 12:28:05.470" endtime="20200518 12:28:05.537"></status>
+</kw>
+<kw name="Selecione Mes ou Ano" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json['mesAno']}</arg>
+</arguments>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btSelect</arg>
+</arguments>
+<msg timestamp="20200518 12:28:05.537" level="INFO">Clicking element 'class:btSelect'.</msg>
+<status status="PASS" starttime="20200518 12:28:05.537" endtime="20200518 12:28:05.583"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>class:listaSelect</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:05.583" endtime="20200518 12:28:05.599"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[${mesAno}]/a</arg>
+</arguments>
+<msg timestamp="20200518 12:28:05.600" level="INFO">Clicking element 'xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20200518 12:28:05.599" endtime="20200518 12:28:05.769"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:05.537" endtime="20200518 12:28:05.769"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:06.084" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:05.770" endtime="20200518 12:28:06.085"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btnAmarelo</arg>
+</arguments>
+<msg timestamp="20200518 12:28:06.085" level="INFO">Clicking element 'class:btnAmarelo'.</msg>
+<status status="PASS" starttime="20200518 12:28:06.085" endtime="20200518 12:28:06.126"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:05.278" endtime="20200518 12:28:06.126"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:05.274" endtime="20200518 12:28:06.126"></status>
+</kw>
+<kw name="Então Devo visualizar mensagem crítica" library="actions">
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:06.127" endtime="20200518 12:28:06.137"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:06.126" endtime="20200518 12:28:06.137"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:05.130" endtime="20200518 12:28:06.137"></status>
+</kw>
+<kw name="After Test" library="BasePage" type="teardown">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:06.440" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:06.138" endtime="20200518 12:28:06.440"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:06.138" endtime="20200518 12:28:06.440"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:05.129" endtime="20200518 12:28:06.441" critical="yes"></status>
+</test>
+<test id="s1-t4" name="Tentativa de Simular Investimento Poupança poupar todo mês menor R$ 20,00">
+<kw name="Tentativa de Simulacao">
+<arguments>
+<arg>poupancaVPM20.json</arg>
+<arg>Valor mínimo de 20.00</arg>
+</arguments>
+<kw name="Dado que eu acesso a página da Sicredi" library="actions">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+</arguments>
+<msg timestamp="20200518 12:28:06.444" level="INFO">Opening url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'</msg>
+<status status="PASS" starttime="20200518 12:28:06.444" endtime="20200518 12:28:06.556"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:06.443" endtime="20200518 12:28:06.556"></status>
+</kw>
+<kw name="Eu como associado quando preencho os campos para simulação" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<kw name="Get Simulacao Json" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<assign>
+<var>${dados_simulacao_json}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>resources/fixtures/${file_name}</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20200518 12:28:06.557" level="INFO" html="yes">Getting file '&lt;a href="file://c:\southsystem\sicredi\resources\fixtures\poupancaVPM20.json"&gt;c:\southsystem\sicredi\resources\fixtures\poupancaVPM20.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200518 12:28:06.557" level="INFO">${file} = {
+    "perfil": "paraVoce",
+    "valorAplicar": "20,00",
+    "valorInvestir": "19,99",
+    "tempoPoupar": "10",
+    "mesAno": "2"
+}</msg>
+<status status="PASS" starttime="20200518 12:28:06.557" endtime="20200518 12:28:06.557"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads($file)</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200518 12:28:06.558" level="INFO">${json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '19,99', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:06.557" endtime="20200518 12:28:06.558"></status>
+</kw>
+<msg timestamp="20200518 12:28:06.559" level="INFO">${dados_simulacao_json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '19,99', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:06.556" endtime="20200518 12:28:06.559"></status>
+</kw>
+<kw name="Simular Poupança" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:06.559" endtime="20200518 12:28:06.596"></status>
+</kw>
+<kw name="Select Radio Button" library="SeleniumLibrary">
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<arguments>
+<arg>perfil</arg>
+<arg>${dados_simulacao_json['perfil']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:06.597" level="INFO">Selecting 'paraVoce' from radio button 'perfil'.</msg>
+<status status="PASS" starttime="20200518 12:28:06.596" endtime="20200518 12:28:06.611"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+<arg>${dados_simulacao_json['valorAplicar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:06.611" level="INFO">Typing text '20,00' into text field 'id:valorAplicar'.</msg>
+<status status="PASS" starttime="20200518 12:28:06.611" endtime="20200518 12:28:06.688"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorInvestir</arg>
+<arg>${dados_simulacao_json['valorInvestir']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:06.689" level="INFO">Typing text '19,99' into text field 'id:valorInvestir'.</msg>
+<status status="PASS" starttime="20200518 12:28:06.688" endtime="20200518 12:28:06.764"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:tempo</arg>
+<arg>${dados_simulacao_json['tempoPoupar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:06.765" level="INFO">Typing text '10' into text field 'id:tempo'.</msg>
+<status status="PASS" starttime="20200518 12:28:06.765" endtime="20200518 12:28:06.853"></status>
+</kw>
+<kw name="Selecione Mes ou Ano" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json['mesAno']}</arg>
+</arguments>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btSelect</arg>
+</arguments>
+<msg timestamp="20200518 12:28:06.853" level="INFO">Clicking element 'class:btSelect'.</msg>
+<status status="PASS" starttime="20200518 12:28:06.853" endtime="20200518 12:28:06.900"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>class:listaSelect</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:06.900" endtime="20200518 12:28:06.917"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[${mesAno}]/a</arg>
+</arguments>
+<msg timestamp="20200518 12:28:06.918" level="INFO">Clicking element 'xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20200518 12:28:06.918" endtime="20200518 12:28:07.069"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:06.853" endtime="20200518 12:28:07.069"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:07.365" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:07.069" endtime="20200518 12:28:07.365"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btnAmarelo</arg>
+</arguments>
+<msg timestamp="20200518 12:28:07.365" level="INFO">Clicking element 'class:btnAmarelo'.</msg>
+<status status="PASS" starttime="20200518 12:28:07.365" endtime="20200518 12:28:07.406"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:06.559" endtime="20200518 12:28:07.406"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:06.556" endtime="20200518 12:28:07.406"></status>
+</kw>
+<kw name="Então Devo visualizar mensagem crítica" library="actions">
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:07.406" endtime="20200518 12:28:07.414"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:07.406" endtime="20200518 12:28:07.414"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:06.443" endtime="20200518 12:28:07.414"></status>
+</kw>
+<kw name="After Test" library="BasePage" type="teardown">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:07.711" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-8.png"&gt;&lt;img src="selenium-screenshot-8.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:07.414" endtime="20200518 12:28:07.711"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:07.414" endtime="20200518 12:28:07.711"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:06.442" endtime="20200518 12:28:07.712" critical="yes"></status>
+</test>
+<test id="s1-t5" name="Tentativa de Simular Investimento Poupança tempo que deseja poupar menor 1 mês">
+<kw name="Tentativa de Simulacao">
+<arguments>
+<arg>poupancatempozero.json</arg>
+<arg>Valor esperado não confere</arg>
+</arguments>
+<kw name="Dado que eu acesso a página da Sicredi" library="actions">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+</arguments>
+<msg timestamp="20200518 12:28:07.714" level="INFO">Opening url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'</msg>
+<status status="PASS" starttime="20200518 12:28:07.714" endtime="20200518 12:28:07.820"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:07.714" endtime="20200518 12:28:07.821"></status>
+</kw>
+<kw name="Eu como associado quando preencho os campos para simulação" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<kw name="Get Simulacao Json" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<assign>
+<var>${dados_simulacao_json}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>resources/fixtures/${file_name}</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20200518 12:28:07.822" level="INFO" html="yes">Getting file '&lt;a href="file://c:\southsystem\sicredi\resources\fixtures\poupancatempozero.json"&gt;c:\southsystem\sicredi\resources\fixtures\poupancatempozero.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200518 12:28:07.822" level="INFO">${file} = {
+    "perfil": "paraVoce",
+    "valorAplicar": "20,00",
+    "valorInvestir": "21,00",
+    "tempoPoupar": "0",
+    "mesAno": "2"
+}</msg>
+<status status="PASS" starttime="20200518 12:28:07.821" endtime="20200518 12:28:07.822"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads($file)</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200518 12:28:07.823" level="INFO">${json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '21,00', 'tempoPoupar': '0', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:07.822" endtime="20200518 12:28:07.823"></status>
+</kw>
+<msg timestamp="20200518 12:28:07.823" level="INFO">${dados_simulacao_json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '21,00', 'tempoPoupar': '0', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:07.821" endtime="20200518 12:28:07.823"></status>
+</kw>
+<kw name="Simular Poupança" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:07.823" endtime="20200518 12:28:07.864"></status>
+</kw>
+<kw name="Select Radio Button" library="SeleniumLibrary">
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<arguments>
+<arg>perfil</arg>
+<arg>${dados_simulacao_json['perfil']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:07.864" level="INFO">Selecting 'paraVoce' from radio button 'perfil'.</msg>
+<status status="PASS" starttime="20200518 12:28:07.864" endtime="20200518 12:28:07.878"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+<arg>${dados_simulacao_json['valorAplicar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:07.879" level="INFO">Typing text '20,00' into text field 'id:valorAplicar'.</msg>
+<status status="PASS" starttime="20200518 12:28:07.878" endtime="20200518 12:28:07.974"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorInvestir</arg>
+<arg>${dados_simulacao_json['valorInvestir']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:07.975" level="INFO">Typing text '21,00' into text field 'id:valorInvestir'.</msg>
+<status status="PASS" starttime="20200518 12:28:07.974" endtime="20200518 12:28:08.051"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:tempo</arg>
+<arg>${dados_simulacao_json['tempoPoupar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:08.051" level="INFO">Typing text '0' into text field 'id:tempo'.</msg>
+<status status="PASS" starttime="20200518 12:28:08.051" endtime="20200518 12:28:08.115"></status>
+</kw>
+<kw name="Selecione Mes ou Ano" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json['mesAno']}</arg>
+</arguments>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btSelect</arg>
+</arguments>
+<msg timestamp="20200518 12:28:08.115" level="INFO">Clicking element 'class:btSelect'.</msg>
+<status status="PASS" starttime="20200518 12:28:08.115" endtime="20200518 12:28:08.162"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>class:listaSelect</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:08.162" endtime="20200518 12:28:08.181"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[${mesAno}]/a</arg>
+</arguments>
+<msg timestamp="20200518 12:28:08.182" level="INFO">Clicking element 'xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20200518 12:28:08.181" endtime="20200518 12:28:08.350"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:08.115" endtime="20200518 12:28:08.351"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:08.664" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-9.png"&gt;&lt;img src="selenium-screenshot-9.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:08.351" endtime="20200518 12:28:08.664"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btnAmarelo</arg>
+</arguments>
+<msg timestamp="20200518 12:28:08.665" level="INFO">Clicking element 'class:btnAmarelo'.</msg>
+<status status="PASS" starttime="20200518 12:28:08.664" endtime="20200518 12:28:08.705"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:07.823" endtime="20200518 12:28:08.705"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:07.821" endtime="20200518 12:28:08.705"></status>
+</kw>
+<kw name="Então Devo visualizar mensagem crítica" library="actions">
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:08.706" endtime="20200518 12:28:08.715"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:08.705" endtime="20200518 12:28:08.715"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:07.714" endtime="20200518 12:28:08.715"></status>
+</kw>
+<kw name="After Test" library="BasePage" type="teardown">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:09.010" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-10.png"&gt;&lt;img src="selenium-screenshot-10.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:08.716" endtime="20200518 12:28:09.010"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:08.716" endtime="20200518 12:28:09.010"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:07.713" endtime="20200518 12:28:09.011" critical="yes"></status>
+</test>
+<test id="s1-t6" name="Tentativa de Simular Investimento Poupança sem informar valor que quer aplicar">
+<kw name="Tentativa de Simulacao">
+<arguments>
+<arg>poupancaVAembranco.json</arg>
+<arg>Valor mínimo de 20.00</arg>
+</arguments>
+<kw name="Dado que eu acesso a página da Sicredi" library="actions">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+</arguments>
+<msg timestamp="20200518 12:28:09.014" level="INFO">Opening url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'</msg>
+<status status="PASS" starttime="20200518 12:28:09.013" endtime="20200518 12:28:09.133"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:09.013" endtime="20200518 12:28:09.133"></status>
+</kw>
+<kw name="Eu como associado quando preencho os campos para simulação" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<kw name="Get Simulacao Json" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<assign>
+<var>${dados_simulacao_json}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>resources/fixtures/${file_name}</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20200518 12:28:09.135" level="INFO" html="yes">Getting file '&lt;a href="file://c:\southsystem\sicredi\resources\fixtures\poupancaVAembranco.json"&gt;c:\southsystem\sicredi\resources\fixtures\poupancaVAembranco.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200518 12:28:09.135" level="INFO">${file} = {
+    "perfil": "paraVoce",
+    "valorAplicar": "",
+    "valorInvestir": "21,00",
+    "tempoPoupar": "10",
+    "mesAno": "2"
+}</msg>
+<status status="PASS" starttime="20200518 12:28:09.135" endtime="20200518 12:28:09.135"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads($file)</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200518 12:28:09.136" level="INFO">${json} = {'perfil': 'paraVoce', 'valorAplicar': '', 'valorInvestir': '21,00', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:09.136" endtime="20200518 12:28:09.136"></status>
+</kw>
+<msg timestamp="20200518 12:28:09.136" level="INFO">${dados_simulacao_json} = {'perfil': 'paraVoce', 'valorAplicar': '', 'valorInvestir': '21,00', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:09.134" endtime="20200518 12:28:09.136"></status>
+</kw>
+<kw name="Simular Poupança" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:09.137" endtime="20200518 12:28:09.164"></status>
+</kw>
+<kw name="Select Radio Button" library="SeleniumLibrary">
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<arguments>
+<arg>perfil</arg>
+<arg>${dados_simulacao_json['perfil']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:09.164" level="INFO">Selecting 'paraVoce' from radio button 'perfil'.</msg>
+<status status="PASS" starttime="20200518 12:28:09.164" endtime="20200518 12:28:09.177"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+<arg>${dados_simulacao_json['valorAplicar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:09.177" level="INFO">Typing text '' into text field 'id:valorAplicar'.</msg>
+<status status="PASS" starttime="20200518 12:28:09.177" endtime="20200518 12:28:09.240"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorInvestir</arg>
+<arg>${dados_simulacao_json['valorInvestir']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:09.241" level="INFO">Typing text '21,00' into text field 'id:valorInvestir'.</msg>
+<status status="PASS" starttime="20200518 12:28:09.241" endtime="20200518 12:28:09.321"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:tempo</arg>
+<arg>${dados_simulacao_json['tempoPoupar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:09.321" level="INFO">Typing text '10' into text field 'id:tempo'.</msg>
+<status status="PASS" starttime="20200518 12:28:09.321" endtime="20200518 12:28:09.388"></status>
+</kw>
+<kw name="Selecione Mes ou Ano" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json['mesAno']}</arg>
+</arguments>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btSelect</arg>
+</arguments>
+<msg timestamp="20200518 12:28:09.388" level="INFO">Clicking element 'class:btSelect'.</msg>
+<status status="PASS" starttime="20200518 12:28:09.388" endtime="20200518 12:28:09.432"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>class:listaSelect</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:09.432" endtime="20200518 12:28:09.450"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[${mesAno}]/a</arg>
+</arguments>
+<msg timestamp="20200518 12:28:09.450" level="INFO">Clicking element 'xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20200518 12:28:09.450" endtime="20200518 12:28:09.602"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:09.388" endtime="20200518 12:28:09.602"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:09.914" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-11.png"&gt;&lt;img src="selenium-screenshot-11.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:09.602" endtime="20200518 12:28:09.914"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btnAmarelo</arg>
+</arguments>
+<msg timestamp="20200518 12:28:09.914" level="INFO">Clicking element 'class:btnAmarelo'.</msg>
+<status status="PASS" starttime="20200518 12:28:09.914" endtime="20200518 12:28:09.954"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:09.136" endtime="20200518 12:28:09.955"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:09.133" endtime="20200518 12:28:09.955"></status>
+</kw>
+<kw name="Então Devo visualizar mensagem crítica" library="actions">
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:09.955" endtime="20200518 12:28:09.962"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:09.955" endtime="20200518 12:28:09.962"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:09.013" endtime="20200518 12:28:09.962"></status>
+</kw>
+<kw name="After Test" library="BasePage" type="teardown">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:10.286" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-12.png"&gt;&lt;img src="selenium-screenshot-12.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:09.963" endtime="20200518 12:28:10.286"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:09.963" endtime="20200518 12:28:10.286"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:09.013" endtime="20200518 12:28:10.287" critical="yes"></status>
+</test>
+<test id="s1-t7" name="Tentativa de Simular Investimento Poupança sem informar quanto quer poupar todo mês">
+<kw name="Tentativa de Simulacao">
+<arguments>
+<arg>poupancaVPembranco.json</arg>
+<arg>Valor mínimo de 20.00</arg>
+</arguments>
+<kw name="Dado que eu acesso a página da Sicredi" library="actions">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+</arguments>
+<msg timestamp="20200518 12:28:10.289" level="INFO">Opening url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'</msg>
+<status status="PASS" starttime="20200518 12:28:10.289" endtime="20200518 12:28:10.406"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:10.289" endtime="20200518 12:28:10.406"></status>
+</kw>
+<kw name="Eu como associado quando preencho os campos para simulação" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<kw name="Get Simulacao Json" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<assign>
+<var>${dados_simulacao_json}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>resources/fixtures/${file_name}</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20200518 12:28:10.408" level="INFO" html="yes">Getting file '&lt;a href="file://c:\southsystem\sicredi\resources\fixtures\poupancaVPembranco.json"&gt;c:\southsystem\sicredi\resources\fixtures\poupancaVPembranco.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200518 12:28:10.408" level="INFO">${file} = {
+    "perfil": "paraVoce",
+    "valorAplicar": "20,00",
+    "valorInvestir": "",
+    "tempoPoupar": "10",
+    "mesAno": "2"
+}</msg>
+<status status="PASS" starttime="20200518 12:28:10.407" endtime="20200518 12:28:10.409"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads($file)</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200518 12:28:10.410" level="INFO">${json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:10.409" endtime="20200518 12:28:10.410"></status>
+</kw>
+<msg timestamp="20200518 12:28:10.411" level="INFO">${dados_simulacao_json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '', 'tempoPoupar': '10', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:10.407" endtime="20200518 12:28:10.411"></status>
+</kw>
+<kw name="Simular Poupança" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:10.411" endtime="20200518 12:28:10.442"></status>
+</kw>
+<kw name="Select Radio Button" library="SeleniumLibrary">
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<arguments>
+<arg>perfil</arg>
+<arg>${dados_simulacao_json['perfil']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:10.443" level="INFO">Selecting 'paraVoce' from radio button 'perfil'.</msg>
+<status status="PASS" starttime="20200518 12:28:10.442" endtime="20200518 12:28:10.455"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+<arg>${dados_simulacao_json['valorAplicar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:10.455" level="INFO">Typing text '20,00' into text field 'id:valorAplicar'.</msg>
+<status status="PASS" starttime="20200518 12:28:10.455" endtime="20200518 12:28:10.532"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorInvestir</arg>
+<arg>${dados_simulacao_json['valorInvestir']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:10.533" level="INFO">Typing text '' into text field 'id:valorInvestir'.</msg>
+<status status="PASS" starttime="20200518 12:28:10.532" endtime="20200518 12:28:10.589"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:tempo</arg>
+<arg>${dados_simulacao_json['tempoPoupar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:10.589" level="INFO">Typing text '10' into text field 'id:tempo'.</msg>
+<status status="PASS" starttime="20200518 12:28:10.589" endtime="20200518 12:28:10.653"></status>
+</kw>
+<kw name="Selecione Mes ou Ano" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json['mesAno']}</arg>
+</arguments>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btSelect</arg>
+</arguments>
+<msg timestamp="20200518 12:28:10.654" level="INFO">Clicking element 'class:btSelect'.</msg>
+<status status="PASS" starttime="20200518 12:28:10.654" endtime="20200518 12:28:10.699"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>class:listaSelect</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:10.699" endtime="20200518 12:28:10.715"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[${mesAno}]/a</arg>
+</arguments>
+<msg timestamp="20200518 12:28:10.715" level="INFO">Clicking element 'xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20200518 12:28:10.715" endtime="20200518 12:28:10.888"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:10.653" endtime="20200518 12:28:10.888"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:11.209" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-13.png"&gt;&lt;img src="selenium-screenshot-13.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:10.888" endtime="20200518 12:28:11.210"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btnAmarelo</arg>
+</arguments>
+<msg timestamp="20200518 12:28:11.210" level="INFO">Clicking element 'class:btnAmarelo'.</msg>
+<status status="PASS" starttime="20200518 12:28:11.210" endtime="20200518 12:28:11.250"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:10.411" endtime="20200518 12:28:11.250"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:10.406" endtime="20200518 12:28:11.250"></status>
+</kw>
+<kw name="Então Devo visualizar mensagem crítica" library="actions">
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:11.251" endtime="20200518 12:28:11.257"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:11.250" endtime="20200518 12:28:11.257"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:10.289" endtime="20200518 12:28:11.257"></status>
+</kw>
+<kw name="After Test" library="BasePage" type="teardown">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:11.551" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-14.png"&gt;&lt;img src="selenium-screenshot-14.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:11.258" endtime="20200518 12:28:11.552"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:11.258" endtime="20200518 12:28:11.552"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:10.288" endtime="20200518 12:28:11.552" critical="yes"></status>
+</test>
+<test id="s1-t8" name="Tentativa de Simular Investimento Poupança sem informar quanto tempo quer poupar">
+<kw name="Tentativa de Simulacao">
+<arguments>
+<arg>poupancatempoembranco.json</arg>
+<arg>Obrigatório</arg>
+</arguments>
+<kw name="Dado que eu acesso a página da Sicredi" library="actions">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${base_url}/html/ferramenta/simulador-investimento-poupanca/</arg>
+</arguments>
+<msg timestamp="20200518 12:28:11.555" level="INFO">Opening url 'https://www.sicredi.com.br/html/ferramenta/simulador-investimento-poupanca/'</msg>
+<status status="PASS" starttime="20200518 12:28:11.555" endtime="20200518 12:28:11.670"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:11.554" endtime="20200518 12:28:11.670"></status>
+</kw>
+<kw name="Eu como associado quando preencho os campos para simulação" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<kw name="Get Simulacao Json" library="actions">
+<arguments>
+<arg>${file_name}</arg>
+</arguments>
+<assign>
+<var>${dados_simulacao_json}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>resources/fixtures/${file_name}</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20200518 12:28:11.671" level="INFO" html="yes">Getting file '&lt;a href="file://c:\southsystem\sicredi\resources\fixtures\poupancatempoembranco.json"&gt;c:\southsystem\sicredi\resources\fixtures\poupancatempoembranco.json&lt;/a&gt;'.</msg>
+<msg timestamp="20200518 12:28:11.671" level="INFO">${file} = {
+    "perfil": "paraVoce",
+    "valorAplicar": "20,00",
+    "valorInvestir": "21,00",
+    "tempoPoupar": "",
+    "mesAno": "2"
+}</msg>
+<status status="PASS" starttime="20200518 12:28:11.671" endtime="20200518 12:28:11.671"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads($file)</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20200518 12:28:11.672" level="INFO">${json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '21,00', 'tempoPoupar': '', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:11.671" endtime="20200518 12:28:11.672"></status>
+</kw>
+<msg timestamp="20200518 12:28:11.672" level="INFO">${dados_simulacao_json} = {'perfil': 'paraVoce', 'valorAplicar': '20,00', 'valorInvestir': '21,00', 'tempoPoupar': '', 'mesAno': '2'}</msg>
+<status status="PASS" starttime="20200518 12:28:11.670" endtime="20200518 12:28:11.672"></status>
+</kw>
+<kw name="Simular Poupança" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:11.673" endtime="20200518 12:28:11.701"></status>
+</kw>
+<kw name="Select Radio Button" library="SeleniumLibrary">
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<arguments>
+<arg>perfil</arg>
+<arg>${dados_simulacao_json['perfil']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:11.701" level="INFO">Selecting 'paraVoce' from radio button 'perfil'.</msg>
+<status status="PASS" starttime="20200518 12:28:11.701" endtime="20200518 12:28:11.713"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorAplicar</arg>
+<arg>${dados_simulacao_json['valorAplicar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:11.713" level="INFO">Typing text '20,00' into text field 'id:valorAplicar'.</msg>
+<status status="PASS" starttime="20200518 12:28:11.713" endtime="20200518 12:28:11.788"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:valorInvestir</arg>
+<arg>${dados_simulacao_json['valorInvestir']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:11.788" level="INFO">Typing text '21,00' into text field 'id:valorInvestir'.</msg>
+<status status="PASS" starttime="20200518 12:28:11.788" endtime="20200518 12:28:11.865"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:tempo</arg>
+<arg>${dados_simulacao_json['tempoPoupar']}</arg>
+</arguments>
+<msg timestamp="20200518 12:28:11.865" level="INFO">Typing text '' into text field 'id:tempo'.</msg>
+<status status="PASS" starttime="20200518 12:28:11.865" endtime="20200518 12:28:11.926"></status>
+</kw>
+<kw name="Selecione Mes ou Ano" library="SimularPoupanca">
+<arguments>
+<arg>${dados_simulacao_json['mesAno']}</arg>
+</arguments>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btSelect</arg>
+</arguments>
+<msg timestamp="20200518 12:28:11.926" level="INFO">Clicking element 'class:btSelect'.</msg>
+<status status="PASS" starttime="20200518 12:28:11.926" endtime="20200518 12:28:11.968"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>class:listaSelect</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:11.968" endtime="20200518 12:28:11.986"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[${mesAno}]/a</arg>
+</arguments>
+<msg timestamp="20200518 12:28:11.987" level="INFO">Clicking element 'xpath:/html/body/div[3]/div/div/div[1]/div/div[1]/form/div[4]/div[2]/div[2]/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20200518 12:28:11.987" endtime="20200518 12:28:12.153"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:11.926" endtime="20200518 12:28:12.153"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:12.459" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-15.png"&gt;&lt;img src="selenium-screenshot-15.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:12.153" endtime="20200518 12:28:12.460"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>class:btnAmarelo</arg>
+</arguments>
+<msg timestamp="20200518 12:28:12.460" level="INFO">Clicking element 'class:btnAmarelo'.</msg>
+<status status="PASS" starttime="20200518 12:28:12.460" endtime="20200518 12:28:12.500"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:11.672" endtime="20200518 12:28:12.500"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:11.670" endtime="20200518 12:28:12.500"></status>
+</kw>
+<kw name="Então Devo visualizar mensagem crítica" library="actions">
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>${expect_message}</arg>
+</arguments>
+<status status="PASS" starttime="20200518 12:28:12.500" endtime="20200518 12:28:12.510"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:12.500" endtime="20200518 12:28:12.510"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:11.554" endtime="20200518 12:28:12.510"></status>
+</kw>
+<kw name="After Test" library="BasePage" type="teardown">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200518 12:28:12.812" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-16.png"&gt;&lt;img src="selenium-screenshot-16.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200518 12:28:12.511" endtime="20200518 12:28:12.812"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:12.511" endtime="20200518 12:28:12.812"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:11.554" endtime="20200518 12:28:12.813" critical="yes"></status>
+</test>
+<kw name="Close Session" library="BasePage" type="teardown">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20200518 12:28:12.815" endtime="20200518 12:28:14.922"></status>
+</kw>
+<status status="PASS" starttime="20200518 12:28:12.815" endtime="20200518 12:28:14.922"></status>
+</kw>
+<doc>Simular Investimento Poupança
+Sendo um associado
+Quero informar os valores da simulação
+Para que eu possa visualizar o formulário de simulação</doc>
+<status status="PASS" starttime="20200518 12:27:56.270" endtime="20200518 12:28:14.922"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="8" fail="0">Critical Tests</stat>
+<stat pass="8" fail="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0">simular_sucesso_pf</stat>
+<stat pass="1" fail="0">simular_sucesso_pj</stat>
+</tag>
+<suite>
+<stat pass="8" fail="0" id="s1" name="Simularpoupanca">Simularpoupanca</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
